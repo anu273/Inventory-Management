@@ -1,23 +1,39 @@
 # Inventory Management Tool
 
-A comprehensive backend service for managing product inventory, built with Python, Flask, and SQLAlchemy. It features JWT-based authentication for securing API endpoints, a modular structure for configuration and models, and a full suite of features for user and product management.
+A comprehensive backend service and user interface for managing product inventory. The backend is built with Python and Flask, featuring JWT-based authentication, while the frontend is a single-page application.
 
 ## ✨ Features
 
+* **Full-Stack Application**: A complete solution with a backend API and a user-friendly frontend.
 * **User Authentication**: Secure user registration and login using JWT (JSON Web Tokens).
 * **Product Management**: Full CRUD (Create, Read, Update, Delete) functionality for inventory products.
-* **Profile Management**: Users can view and update their own profiles.
-* **Soft Deletion**: Products are marked as inactive instead of being permanently deleted from the database.
-* **Modular Design**: Code is organized into separate files for the main application (`app.py`), database models (`models.py`), and configuration (`config.py`).
-* **CLI Commands**: Includes easy-to-use command-line commands to initialize or reset the database.
+* **Soft Deletion**: Products are marked as inactive instead of being permanently deleted.
+* **Modular Design**: Backend code is organized into separate files for the application, models, and configuration.
 
 ## 🛠️ Tech Stack
 
-* **Backend**: Python, Flask
-* **Database**: SQLite (default), easily configurable for others like PostgreSQL.
-* **ORM**: Flask-SQLAlchemy
-* **Authentication**: Flask-JWT-Extended
+* **Backend**: Python, Flask, Flask-SQLAlchemy, Flask-JWT-Extended
+* **Frontend**: HTML, CSS, JavaScript (served statically by Flask)
+* **Database**: SQLite
 * **CORS Handling**: Flask-Cors
+
+## 📂 Project Structure
+
+For the application to work correctly, your project should follow this structure:
+
+```
+/your-project-folder
+|-- static/
+|   |-- index.html      # Your frontend user interface file
+|
+|-- app.py              # Main Flask application
+|-- models.py           # Database models
+|-- config.py           # Configuration settings
+|-- init_db.py          # Database initialization script
+|-- requirements.txt    # Python dependencies
+|-- .env                # Environment variables (for secrets)
+|-- .gitignore          # Files to be ignored by Git
+```
 
 ## 🚀 Getting Started
 
@@ -37,14 +53,11 @@ cd <repository-folder>
 ```
 
 **2. Create and Activate a Virtual Environment**
-Using a virtual environment is a best practice for managing dependencies.
-
 * **On macOS/Linux:**
   ```bash
   python3 -m venv venv
   source venv/bin/activate
   ```
-
 * **On Windows:**
   ```bash
   python -m venv venv
@@ -52,48 +65,47 @@ Using a virtual environment is a best practice for managing dependencies.
   ```
 
 **3. Install Dependencies**
-Create a file named `requirements.txt` in the root of your project with the following content:
-```txt
-Flask
-Flask-SQLAlchemy
-Flask-JWT-Extended
-Flask-Cors
-python-dotenv
-Werkzeug
-```
-Then, install the required packages using `pip`:
+Install all the required Python packages from the `requirements.txt` file.
 ```bash
 pip install -r requirements.txt
 ```
 
-**4. Create the Environment File (`.env`)**
-The application requires a `.env` file in the root directory to store your secret key for signing JWTs. Create the file and add the following line.
+**4. Set Up the Frontend**
+Create a `static` folder in your project's root directory. Place your user interface file (e.g., the one we created earlier) inside this folder and name it `index.html`.
 
-**Important**: Replace `'your-super-secret-and-long-jwt-key'` with a strong, randomly generated string.
+**5. Create the Environment File (`.env`)**
+Create a `.env` file in the root directory. This file stores your secret keys and configuration settings. Copy the following content into it:
+
 ```
-JWT_SECRET_KEY='your-super-secret-and-long-jwt-key'
+# Development secret keys (CHANGE THESE IN PRODUCTION!)
+SECRET_KEY='dev-flask-secret-key-change-in-production-12345678901234567890'
+JWT_SECRET_KEY='dev-jwt-secret-key-change-in-production-abcdefghijklmnopqrstuvwxyz'
+
+# Database configuration
+FLASK_ENV=development
 ```
 
-**5. Initialize the Database**
-The application uses a custom Flask command to create the `inventory.db` file and set up all the necessary tables. Run this command from your terminal:
+**6. Initialize the Database**
+Run the following Flask command to create the `inventory.db` file and all necessary tables.
 ```bash
 flask init-db
 ```
 You should see the output: `Initialized the database.`
 
-Alternatively, you can use the provided `init_db.py` script:
-```bash
-python init_db.py
-```
-
-**6. Run the Application**
-You're all set! Start the Flask development server with the following command:
+**7. Run the Application**
+You are now ready to run the full-stack application. The `flask run` command will start the backend server.
 ```bash
 flask run
 ```
-The API will now be running on `http://127.0.0.1:5000`.
+The server will start on `http://127.0.0.1:5000`.
+
+To go to the webpage, open the `index.html` file located in the `static` folder in your web browser, or simply navigate to [http://127.0.0.1:5000](http://127.0.0.1:5000).
+
+---
 
 ## 📖 API Documentation
+
+The backend exposes the following REST API endpoints.
 
 **Base URL:** `http://127.0.0.1:5000`
 
