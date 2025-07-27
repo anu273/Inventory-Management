@@ -1,0 +1,7 @@
+# requirements.txt
+Flask
+flask_cors
+Flask-SQLAlchemy
+Flask-JWT-Extended
+python-dotenv
+Werkzeug
