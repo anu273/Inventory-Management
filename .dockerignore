@@ -1,0 +1,27 @@
+# Ignore database files
+*.db
+instance/
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Ignore environment files
+.env
+.venv/
+env/
+venv/
+
+# Ignore git files
+.git
+.gitignore
+
+# Ignore test files
+test_*.py
+
+# Ignore documentation
+README.md
+*.md
