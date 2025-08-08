@@ -1,6 +1,7 @@
 # app.py
 
 import os
+from flask import send_from_directory
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import create_access_token, jwt_required, JWTManager, get_jwt_identity
@@ -92,20 +93,9 @@ def user_to_dict(user):
 
 ## Root endpoint
 @app.route('/')
-def index():
-    """Root endpoint - API information."""
-    return jsonify({
-        "message": "Inventory Management Tool API",
-        "version": "1.0.0",
-        "endpoints": {
-            "register": "POST /register",
-            "login": "POST /login", 
-            "add_product": "POST /products",
-            "update_quantity": "PUT /products/{id}/quantity",
-            "get_products": "GET /products",
-            "get_user_profile": "GET /profile"
-        }
-    }), 200
+def serve_index():
+    return send_from_directory('static', 'index.html')
+
 
 ## User Management
 @app.route('/register', methods=['POST'])
@@ -357,9 +347,7 @@ def bad_request(error):
     return jsonify({"msg": "Bad request"}), 400
 
 if __name__ == '__main__':
-    # Create tables if they don't exist
     with app.app_context():
         db.create_all()
-    
-    # Running on port 5000 (Flask default)
-    app.run(debug=True, port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5000)
+
