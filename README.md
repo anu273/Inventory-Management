@@ -16,6 +16,7 @@ A comprehensive backend service and user interface for managing product inventor
 * **Frontend**: HTML, CSS, JavaScript (served statically by Flask)
 * **Database**: SQLite
 * **CORS Handling**: Flask-Cors
+* **Containerization**: Docker
 
 ## 📂 Project Structure
 
@@ -24,82 +25,78 @@ For the application to work correctly, your project should follow this structure
 ```
 /your-project-folder
 |-- static/
-|   |-- index.html      # Your frontend user interface file
+|   |-- index.html           # Your frontend user interface file
 |
-|-- app.py              # Main Flask application
-|-- models.py           # Database models
-|-- config.py           # Configuration settings
-|-- init_db.py          # Database initialization script
-|-- requirements.txt    # Python dependencies
-|-- .env                # Environment variables (for secrets)
-|-- .gitignore          # Files to be ignored by Git
+|-- routes/
+|   |-- api_routes.py        # API endpoint definitions
+|
+|-- services/
+|   |-- auth_service.py      # Authentication business logic
+|   |-- product_service.py   # Product management business logic
+|
+|-- app.py                   # Main Flask application
+|-- models.py                # Database models
+|-- config.py                # Configuration settings
+|-- init_db.py               # Database initialization script
+|-- requirements.txt         # Python dependencies
+|-- Dockerfile               # Docker container configuration
+|-- .dockerignore           # Files to exclude from Docker build
+|-- run.bat                 # Windows batch script to run with auto-browser
+|-- .env                    # Environment variables (for secrets)
+|-- .gitignore              # Files to be ignored by Git
 ```
 
 ## 🚀 Getting Started
 
-Follow these instructions to set up and run the project on your local machine.
+You can run this application in two ways: **Docker (Recommended)** or **Local Setup**.
+
+---
+
+## 🐳 Docker Setup 
 
 ### **Prerequisites**
+* Docker Desktop installed on your system
+* Download from: https://www.docker.com/products/docker-desktop/
 
-* Python 3.8+
-* `pip` (Python package installer)
-
-### **Setup Instructions**
+### **Quick Start with Docker**
 
 **1. Clone the Repository**
 ```bash
-git clone <your-repository-link>
-cd <repository-folder>
+git clone <repository-link>
+cd  <repository-link>
 ```
 
-**2. Create and Activate a Virtual Environment**
-* **On macOS/Linux:**
-  ```bash
-  python3 -m venv venv
-  source venv/bin/activate
-  ```
-* **On Windows:**
-  ```bash
-  python -m venv venv
-  .\venv\Scripts\activate
-  ```
-
-**3. Install Dependencies**
-Install all the required Python packages from the `requirements.txt` file.
+**2. Build the Docker Image**
 ```bash
-pip install -r requirements.txt
+docker build -t inventory-app .
 ```
 
-**4. Set Up the Frontend**
-Create a `static` folder in your project's root directory. Place your user interface file (e.g., the one we created earlier) inside this folder and name it `index.html`.
+**3. Run the Application**
 
-**5. Create the Environment File (`.env`)**
-Create a `.env` file in the root directory. This file stores your secret keys and configuration settings. Copy the following content into it:
-
-```
-# Development secret keys (CHANGE THESE IN PRODUCTION!)
-SECRET_KEY='dev-flask-secret-key-change-in-production-12345678901234567890'
-JWT_SECRET_KEY='dev-jwt-secret-key-change-in-production-abcdefghijklmnopqrstuvwxyz'
-
-# Database configuration
-FLASK_ENV=development
-```
-
-**6. Initialize the Database**
-Run the following Flask command to create the `inventory.db` file and all necessary tables.
+**Option A: Basic Run**
 ```bash
-flask init-db
+docker run -p 5000:5000 inventory-app
 ```
-You should see the output: `Initialized the database.`
 
-**7. Run the Application**
-You are now ready to run the full-stack application. The `flask run` command will start the backend server.
+**Option B: Run with Auto-Browser Opening**
+
+*Windows:*
 ```bash
-flask run
+docker run -p 5000:5000 inventory-app & start http://localhost:5000
 ```
-The server will start on `http://127.0.0.1:5000`.
 
-To go to the webpage, open the `index.html` file located in the `static` folder in your web browser, or simply navigate to [http://127.0.0.1:5000](http://127.0.0.1:5000).
+*Mac/Linux:*
+```bash
+docker run -p 5000:5000 inventory-app & open http://localhost:5000
+```
+
+
+**4. Access Your Application**
+- API: http://localhost:5000
+- Frontend: http://localhost:5000 (if index.html is in static folder)
+
+**5. Stop the Application**
+Press `Ctrl+C` in the terminal where Docker is running.
 
 ---
 
